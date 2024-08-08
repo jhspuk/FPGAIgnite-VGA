@@ -99,11 +99,11 @@ begin
         else  -- Read operation
           case WB_ADR_I(3 downto 0) is
             when "0000" =>
-              WB_DAT_O <= (others => '0') & vga_red;
+              WB_DAT_O(3 downto 0) <= vga_red;
             when "0001" =>
-              WB_DAT_O <= (others => '0') & vga_green;
+              WB_DAT_O(3 downto 0) <= vga_green;
             when "0010" =>
-              WB_DAT_O <= (others => '0') & vga_blue;
+              WB_DAT_O(3 downto 0) <= vga_blue;
             when others =>
               WB_DAT_O <= (others => '0');
           end case;
