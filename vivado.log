@@ -26,3 +26,843 @@ launch_runs impl_1 -to_step write_bitstream -jobs 4
 INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
 [Thu Aug  8 18:04:06 2024] Launched impl_1...
 Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+add_files -norecurse /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/imports/hdl/vga_driver.vhd
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+file mkdir /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/new
+close [ open /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/new/vga_driver_test_top.vhd w ]
+add_files /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/new/vga_driver_test_top.vhd
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/new/vga_driver_test_top.vhd] -no_script -reset -force -quiet
+remove_files  /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/new/vga_driver_test_top.vhd
+add_files -norecurse /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/imports/hdl/vga_driver_test_top.vhd
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 19:35:33 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 19:35:33 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property top vga_driver_test_top [current_fileset]
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 19:37:59 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 19:37:59 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 19:40:14 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 19:41:46 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 19:42:37 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2020.1
+  **** Build date : May 27 2020 at 20:33:44
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:3042
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+****** Xilinx cs_server v2020.1.0
+  **** Build date : May 14 2020-03:10:29
+    ** Copyright 2017-2020 Xilinx, Inc. All Rights Reserved.
+
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183698783A
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+current_hw_device [get_hw_devices xc7a35t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183698783A
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 19:49:43 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 19:49:43 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183698783A
+INFO: [Labtools 27-1435] Device xc7a35t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183698783A
+set_property top top [current_fileset]
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 19:55:33 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 19:55:33 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+add_files -norecurse /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/imports/hdl/top_back.vhd
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 19:57:00 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 19:57:00 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183698783A
+INFO: [Labtools 27-1435] Device xc7a35t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183698783A
+set_property top vga_driver_test_top [current_fileset]
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 20:08:59 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 20:09:00 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183698783A
+INFO: [Labtools 27-1435] Device xc7a35t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183698783A
+set_property is_enabled false [get_files  /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/imports/hdl/top.vhd]
+set_property used_in_synthesis false [get_files  /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/imports/hdl/top_back.vhd]
+set_property used_in_synthesis true [get_files  /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/imports/hdl/top_back.vhd]
+set_property is_enabled false [get_files  /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/imports/hdl/top_back.vhd]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 20:13:01 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 20:13:01 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+open_run synth_1 -name synth_1
+Design is defaulting to impl run constrset: constrs_1
+Design is defaulting to synth run part: xc7a35tcpg236-1
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: [Project 1-454] Reading design checkpoint '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.dcp' for cell 'clk_div_inst'
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 9173.453 ; gain = 0.000 ; free physical = 12943 ; free virtual = 22278
+INFO: [Netlist 29-17] Analyzing 15 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2020.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0_board.xdc] for cell 'clk_div_inst/inst'
+Finished Parsing XDC File [/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0_board.xdc] for cell 'clk_div_inst/inst'
+Parsing XDC File [/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xdc] for cell 'clk_div_inst/inst'
+INFO: [Timing 38-35] Done setting XDC timing constraints. [/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xdc:57]
+INFO: [Timing 38-2] Deriving generated clocks [/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xdc:57]
+get_clocks: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 9745.020 ; gain = 504.785 ; free physical = 12465 ; free virtual = 21800
+Finished Parsing XDC File [/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xdc] for cell 'clk_div_inst/inst'
+Parsing XDC File [/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/constrs_1/new/basys.xdc]
+Finished Parsing XDC File [/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/constrs_1/new/basys.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 9745.020 ; gain = 0.000 ; free physical = 12458 ; free virtual = 21793
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+open_run: Time (s): cpu = 00:01:54 ; elapsed = 00:00:14 . Memory (MB): peak = 9839.418 ; gain = 788.930 ; free physical = 13649 ; free virtual = 22987
+close_design
+open_run impl_1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 9900.449 ; gain = 0.000 ; free physical = 13597 ; free virtual = 22963
+INFO: [Netlist 29-17] Analyzing 15 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2020.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 9900.449 ; gain = 0.000 ; free physical = 13472 ; free virtual = 22837
+Restored from archive | CPU: 0.020000 secs | Memory: 0.142509 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 9900.449 ; gain = 0.000 ; free physical = 13472 ; free virtual = 22837
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 9900.449 ; gain = 0.000 ; free physical = 13472 ; free virtual = 22837
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 20:17:38 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 20:17:38 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183698783A
+INFO: [Labtools 27-1435] Device xc7a35t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+export_ip_user_files -of_objects  [get_files /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci] -no_script -reset -force -quiet
+remove_files  /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0_1/clk_wiz_0.xci
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183698783A
+create_ip -name clk_wiz -vendor xilinx.com -library ip -version 6.0 -module_name clk_wiz_0
+set_property -dict [list CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {25} CONFIG.USE_LOCKED {false} CONFIG.USE_RESET {false} CONFIG.MMCM_CLKFBOUT_MULT_F {9.125} CONFIG.MMCM_CLKOUT0_DIVIDE_F {36.500} CONFIG.CLKOUT1_JITTER {181.828} CONFIG.CLKOUT1_PHASE_ERROR {104.359}] [get_ips clk_wiz_0]
+generate_target {instantiation_template} [get_files /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'clk_wiz_0'...
+update_compile_order -fileset sources_1
+generate_target all [get_files  /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci]
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'clk_wiz_0'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'clk_wiz_0'...
+INFO: [IP_Flow 19-1686] Generating 'Implementation' target for IP 'clk_wiz_0'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'clk_wiz_0'...
+catch { config_ip_cache -export [get_ips -all clk_wiz_0] }
+INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP clk_wiz_0, cache-ID = 3ce587312a09511c; cache size = 0.125 MB.
+export_ip_user_files -of_objects [get_files /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci]
+INFO: [Vivado 12-3453] The given sub-design is up-to-date, no action was taken.  If a run is still desired, use the '-force' option for the file:'/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci'
+export_simulation -of_objects [get_files /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci] -directory /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.ip_user_files/sim_scripts -ip_user_files_dir /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.ip_user_files -ipstatic_source_dir /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.ip_user_files/ipstatic -lib_map_path [list {modelsim=/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.cache/compile_simlib/modelsim} {questa=/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.cache/compile_simlib/questa} {ies=/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.cache/compile_simlib/ies} {xcelium=/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.cache/compile_simlib/xcelium} {vcs=/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.cache/compile_simlib/vcs} {riviera=/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.cache/compile_simlib/riviera}] -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 20:22:01 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 20:22:01 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183698783A
+INFO: [Labtools 27-1435] Device xc7a35t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 20:31:19 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 20:31:19 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+file mkdir /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sim_1/new
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sim_1/new/vga_driver_test_top_tb.vhd w ]
+add_files -fileset sim_1 /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sim_1/new/vga_driver_test_top_tb.vhd
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/opt/tools/Xilinx/Vivado/2020.1/data/xsim/xsim.ini' copied to run dir:'/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'vga_driver_test_top_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj vga_driver_test_top_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_wiz_0_clk_wiz
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_wiz_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+xvhdl --incr --relax -prj vga_driver_test_top_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/imports/hdl/vga_driver.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'vga_driver'
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/imports/hdl/vga_driver_test_top.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'vga_driver_test_top'
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sim_1/new/vga_driver_test_top_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'vga_driver_test_top_tb'
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim'
+xelab -wto 76f52483472549e0ad5407ac877dcbd3 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot vga_driver_test_top_tb_behav xil_defaultlib.vga_driver_test_top_tb xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator 2020.1
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: /opt/tools/Xilinx/Vivado/2020.1/bin/unwrapped/lnx64.o/xelab -wto 76f52483472549e0ad5407ac877dcbd3 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot vga_driver_test_top_tb_behav xil_defaultlib.vga_driver_test_top_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+ERROR: [VRFC 10-3114] architecture 'rtl' not found in entity 'vga_driver_test_top' [/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sim_1/new/vga_driver_test_top_tb.vhd:60]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+launch_simulation: Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 10229.211 ; gain = 0.000 ; free physical = 13131 ; free virtual = 22624
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/opt/tools/Xilinx/Vivado/2020.1/data/xsim/xsim.ini' copied to run dir:'/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'vga_driver_test_top_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj vga_driver_test_top_tb_vlog.prj
+xvhdl --incr --relax -prj vga_driver_test_top_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sim_1/new/vga_driver_test_top_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'vga_driver_test_top_tb'
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim'
+xelab -wto 76f52483472549e0ad5407ac877dcbd3 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot vga_driver_test_top_tb_behav xil_defaultlib.vga_driver_test_top_tb xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator 2020.1
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: /opt/tools/Xilinx/Vivado/2020.1/bin/unwrapped/lnx64.o/xelab -wto 76f52483472549e0ad5407ac877dcbd3 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot vga_driver_test_top_tb_behav xil_defaultlib.vga_driver_test_top_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package ieee.std_logic_textio
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling package vl.vl_types
+Compiling module xil_defaultlib.glbl
+Compiling module unisims_ver.IBUF
+Compiling module unisims_ver.MMCME2_ADV(CLKFBOUT_MULT_F=9.125...
+Compiling module unisims_ver.BUFG
+Compiling module xil_defaultlib.clk_wiz_0_clk_wiz
+Compiling module xil_defaultlib.clk_wiz_0
+Compiling architecture behavioral of entity xil_defaultlib.vga_driver [vga_driver_default]
+Compiling architecture behavioral of entity xil_defaultlib.vga_driver_test_top [vga_driver_test_top_default]
+Compiling architecture rtl of entity xil_defaultlib.vga_driver_test_top_tb
+Built simulation snapshot vga_driver_test_top_tb_behav
+
+****** Webtalk v2020.1 (64-bit)
+  **** SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
+  **** IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim/xsim.dir/vga_driver_test_top_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Thu Aug  8 21:00:21 2024...
+INFO: [USF-XSim-69] 'elaborate' step finished in '5' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "vga_driver_test_top_tb_behav -key {Behavioral:sim_1:Functional:vga_driver_test_top_tb} -tclbatch {vga_driver_test_top_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2020.1
+Time resolution is 1 ps
+source vga_driver_test_top_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'vga_driver_test_top_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 10320.250 ; gain = 91.039 ; free physical = 12860 ; free virtual = 22430
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 us
+run 5 ms
+run: Time (s): cpu = 00:00:03 ; elapsed = 00:00:17 . Memory (MB): peak = 10320.250 ; gain = 0.000 ; free physical = 13026 ; free virtual = 22591
+run 1 s
+run: Time (s): cpu = 00:00:12 ; elapsed = 00:01:00 . Memory (MB): peak = 10320.250 ; gain = 0.000 ; free physical = 12825 ; free virtual = 22461
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:08:39 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:08:39 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:16:45 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:16:45 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:17:54 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:18:53 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:19:37 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:21:46 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:21:46 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:26:41 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:26:41 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:34:42 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:34:42 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:35:07 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:35:07 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:39:00 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:39:00 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:39:19 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:39:19 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:39:22 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:39:22 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:46:26 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:46:26 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:49:42 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:49:42 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:53:53 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:53:53 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 21:54:40 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 21:54:40 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+add_files -norecurse /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/imports/hdl/wishbone_receiver.vhd
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:25:34 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:26:48 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:29:01 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:29:48 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:32:05 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 22:32:05 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:41:42 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 22:41:42 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:44:31 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:47:07 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:47:53 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:50:18 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:51:17 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:53:25 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:53:52 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:54:50 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:55:29 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183698783A
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183698783A
+INFO: [Labtools 27-1435] Device xc7a35t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 22:57:55 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 22:57:55 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci' is already up-to-date
+[Thu Aug  8 23:02:29 2024] Launched synth_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/synth_1/runme.log
+[Thu Aug  8 23:02:29 2024] Launched impl_1...
+Run output will be captured here: /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {/home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.runs/impl_1/vga_driver_test_top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.

@@ -36,7 +36,7 @@ end top;
 
 architecture Behavioral of top is
 
-component clk_wiz_0
+component vga_driver
 port
  (-- Clock in ports
   CLK_IN1           : in     std_logic;
