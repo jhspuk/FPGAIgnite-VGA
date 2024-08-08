@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Tue Aug  2 11:25:09 2022
+# Process ID: 19436
+# Current directory: D:/WorkBORI/vga/Arty-A7/hw/proj/hw.runs/impl_1
+# Command line: vivado.exe -log top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source top.tcl -notrace
+# Log file: D:/WorkBORI/vga/Arty-A7/hw/proj/hw.runs/impl_1/top.vdi
+# Journal file: D:/WorkBORI/vga/Arty-A7/hw/proj/hw.runs/impl_1\vivado.jou
+# Running On: sim-ro, OS: Windows, CPU Frequency: 2993 MHz, CPU Physical cores: 16, Host memory: 343200 MB
+#-----------------------------------------------------------
+source top.tcl -notrace
