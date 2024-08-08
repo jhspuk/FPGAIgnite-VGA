@@ -1,0 +1,17 @@
+#-----------------------------------------------------------
+# Vivado v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Thu Aug  8 18:02:22 2024
+# Process ID: 97904
+# Current directory: /home/chao/git/FPGAIgnite-VGA
+# Command line: vivado
+# Log file: /home/chao/git/FPGAIgnite-VGA/vivado.log
+# Journal file: /home/chao/git/FPGAIgnite-VGA/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/chao/git/FPGAIgnite-VGA/vivado_vga_example/project_1.xpr
+update_compile_order -fileset sources_1
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
