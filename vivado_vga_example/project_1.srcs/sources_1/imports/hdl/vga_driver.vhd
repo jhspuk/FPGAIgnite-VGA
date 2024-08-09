@@ -44,80 +44,6 @@ architecture Behavioral of vga_driver is
     constant H_POL : std_logic := '0';
     constant V_POL : std_logic := '0';
     
-    ----***800x600@60Hz***--  Requires 40 MHz clock
-    --constant FRAME_WIDTH : natural := 800;
-    --constant FRAME_HEIGHT : natural := 600;
-    --
-    --constant H_FP : natural := 40; --H front porch width (pixels)
-    --constant H_PW : natural := 128; --H sync pulse width (pixels)
-    --constant H_MAX : natural := 1056; --H total period (pixels)
-    --
-    --constant V_FP : natural := 1; --V front porch width (lines)
-    --constant V_PW : natural := 4; --V sync pulse width (lines)
-    --constant V_MAX : natural := 628; --V total period (lines)
-    --
-    --constant H_POL : std_logic := '1';
-    --constant V_POL : std_logic := '1';
-    
-    
-    ----***1280x720@60Hz***-- Requires 74.25 MHz clock
-    --constant FRAME_WIDTH : natural := 1280;
-    --constant FRAME_HEIGHT : natural := 720;
-    --
-    --constant H_FP : natural := 110; --H front porch width (pixels)
-    --constant H_PW : natural := 40; --H sync pulse width (pixels)
-    --constant H_MAX : natural := 1650; --H total period (pixels)
-    --
-    --constant V_FP : natural := 5; --V front porch width (lines)
-    --constant V_PW : natural := 5; --V sync pulse width (lines)
-    --constant V_MAX : natural := 750; --V total period (lines)
-    --
-    --constant H_POL : std_logic := '1';
-    --constant V_POL : std_logic := '1';
-    
-    ----***1280x1024@60Hz***-- Requires 108 MHz clock
-    --constant FRAME_WIDTH : natural := 1280;
-    --constant FRAME_HEIGHT : natural := 1024;
-    
-    --constant H_FP : natural := 48; --H front porch width (pixels)
-    --constant H_PW : natural := 112; --H sync pulse width (pixels)
-    --constant H_MAX : natural := 1688; --H total period (pixels)
-    
-    --constant V_FP : natural := 1; --V front porch width (lines)
-    --constant V_PW : natural := 3; --V sync pulse width (lines)
-    --constant V_MAX : natural := 1066; --V total period (lines)
-    
-    --constant H_POL : std_logic := '1';
-    --constant V_POL : std_logic := '1';
-    
-    --***1920x1080@60Hz***-- Requires 148.5 MHz pxl_clk
-    --constant FRAME_WIDTH : natural := 1920;
-    --constant FRAME_HEIGHT : natural := 1080;
-    
-    --constant H_FP : natural := 88; --H front porch width (pixels)
-    --constant H_PW : natural := 44; --H sync pulse width (pixels)
-    --constant H_MAX : natural := 2200; --H total period (pixels)
-    
-    --constant V_FP : natural := 4; --V front porch width (lines)
-    --constant V_PW : natural := 5; --V sync pulse width (lines)
-    --constant V_MAX : natural := 1125; --V total period (lines)
-    
-    --constant H_POL : std_logic := '1';
-    --constant V_POL : std_logic := '1';
-    
-    --Moving Box constants
-    constant BOX_WIDTH : natural := 8;
-    constant BOX_CLK_DIV : natural := 1000000; --MAX=(2^25 - 1)
-    
-    constant BOX_X_MAX : natural := (512 - BOX_WIDTH);
-    constant BOX_Y_MAX : natural := (FRAME_HEIGHT - BOX_WIDTH);
-    
-    constant BOX_X_MIN : natural := 0;
-    constant BOX_Y_MIN : natural := 256;
-    
-    constant BOX_X_INIT : std_logic_vector(11 downto 0) := x"000";
-    constant BOX_Y_INIT : std_logic_vector(11 downto 0) := x"190"; --400
-    
     signal pxl_clk : std_logic;
     signal active : std_logic;
     
@@ -133,20 +59,6 @@ architecture Behavioral of vga_driver is
     signal vga_red_reg : std_logic_vector(1 downto 0) := (others =>'0');
     signal vga_green_reg : std_logic_vector(1 downto 0) := (others =>'0');
     signal vga_blue_reg : std_logic_vector(1 downto 0) := (others =>'0');
-    
---    signal vga_red : std_logic_vector(3 downto 0);
---    signal vga_green : std_logic_vector(3 downto 0);
---    signal vga_blue : std_logic_vector(3 downto 0);
-    
-    signal box_x_reg : std_logic_vector(11 downto 0) := BOX_X_INIT;
-    signal box_x_dir : std_logic := '1';
-    signal box_y_reg : std_logic_vector(11 downto 0) := BOX_Y_INIT;
-    signal box_y_dir : std_logic := '1';
-    signal box_cntr_reg : std_logic_vector(24 downto 0) := (others =>'0');
-    
-    signal update_box : std_logic;
-    signal pixel_in_box : std_logic;
-    
     
     begin
       
@@ -209,10 +121,6 @@ architecture Behavioral of vga_driver is
           end if;
         end if;
       end process;
-      
-      
-      active <= '1' when ((h_cntr_reg < FRAME_WIDTH) and (v_cntr_reg < FRAME_HEIGHT))else
-                '0';
     
       process (pxl_clk)
       begin
