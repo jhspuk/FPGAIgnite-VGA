@@ -74,6 +74,8 @@ always @(posedge clk) begin
 			if (h_count == buffer_num - 1) begin
 				h_count <= 0;
 				counter <= counter + 1;
+				data_o[1] = 1'b1;
+				data_o[0] = 1'b1;
 			end else begin
 				h_count <= h_count + 1;
 			end
