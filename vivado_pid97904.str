@@ -8093,3 +8093,4 @@ dismissDialog("Program Device"); // bC (cs)
 // Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
 selectButton(PAResourceOtoP.ProgramDebugTab_PROGRAM_DEVICE, "Program device"); // h
 dismissDialog("Program Device"); // bz (cs)
+// TclEventType: FILE_SET_CHANGE
