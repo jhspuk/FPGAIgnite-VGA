@@ -42,6 +42,7 @@ always @(posedge clk or posedge rst) begin
 		stb_o <= 0;
 		data_o <= 0;
 		ack_i <= 0;
+		output_available <= 1;
 	end else if(stb_i == 1) begin
 		ring_index <= ring_index + 1;
 		ring_line <= {ring_line[buffer_size - 8 : 0], data_i};
@@ -69,7 +70,9 @@ always @(posedge clk) begin
 		stb_o <= 0;
 		output_available <= 1'b1;
 		
-	end else if(output_available) begin
+	end 
+	
+	else if(output_available) begin
 		//processing goes here
 		
 		if (v_count == buffer_num - 1) begin
