@@ -20,7 +20,6 @@ parameter buffer_index_bits = 4;
 parameter buffer_index_bits_both = (buffer_index_bits + 1) * 2 - 1;
 parameter buffer_size = buffer_num * 8 - 1;
 
-
 reg [buffer_index_bits:0] h_count; 
 reg [buffer_index_bits:0] v_count;
 
@@ -66,8 +65,10 @@ end
 //output handshake
 always @(posedge clk) begin
 	if (ack_o) begin
+	
 		stb_o <= 0;
 		output_available <= 1'b1;
+		
 	end else if(output_available) begin
 		//processing goes here
 		
@@ -77,12 +78,12 @@ always @(posedge clk) begin
 		end else begin
 			if (h_count == buffer_num - 1) begin
 				h_count <= 0;
+				v_count <= v_count + 1;
 			end else begin
 				h_count <= h_count + 1;
+				v_count <= v_count + 1;
 			end
 		end
-		
-		
 		
 		//create output data
 		data_o <= data_i;
