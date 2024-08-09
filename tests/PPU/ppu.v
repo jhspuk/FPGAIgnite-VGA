@@ -72,7 +72,7 @@ always @(posedge clk) begin
 		
 	end 
 	
-	else if(output_available) begin
+	if(output_available) begin
 		//processing goes here
 		
 		if (v_count == buffer_num - 1) begin
