@@ -48,14 +48,15 @@ end vga_driver_test_top;
 
 architecture Behavioral of vga_driver_test_top is
     component clk_wiz_0
-port
- (-- Clock in ports
-  CLK_IN1           : in     std_logic;
-  -- Clock out ports
-  CLK_OUT1          : out    std_logic
- );
-end component;
-component vga_driver
+    port
+     (-- Clock in ports
+      CLK_IN1           : in     std_logic;
+      -- Clock out ports
+      CLK_OUT1          : out    std_logic
+     );
+    end component;
+    
+    component vga_driver
     port
     (
         -- wishbone bus
@@ -92,6 +93,21 @@ component vga_driver
         vga_sync: out std_logic);
     end component;
     
+    component BlockRAM_1KB
+    Port(
+    clk : in std_logic;
+    rd_addr: in std_logic_vector(7 downto 0);
+    rd_data: out std_logic_vector(31 downto 0);
+    wr_addr: in std_logic_vector(7 downto 0);
+    wr_data: in std_logic_vector(31 downto 0);
+    C0: in std_logic;
+    C1: in std_logic;
+    C2: in std_logic;
+    C3: in std_logic;
+    C4: in std_logic;
+    C5: in std_logic
+    );
+    end component;
     
 
     signal pxl_clk : std_logic;
@@ -106,6 +122,14 @@ component vga_driver
     signal wish_bone_data_i : std_logic_vector(7 downto 0);
     signal VGA_HS_O_s: std_logic;
     signal VGA_VS_O_s : std_logic;
+    
+    
+    -- Bram logics
+    -- 
+    signal bram_1_rd_addr, bram_1_wr_addr : std_logic_vector(7 downto 0);
+    
+    signal bram_1_rd_data,bram_1_wr_data : std_logic_vector(31 downto 0);
+    
 begin
     wishbone_receiver_inst : wishbone_receiver
     port map
@@ -130,6 +154,22 @@ begin
     CLK_IN1 => CLK_I,
     -- Clock out ports
     CLK_OUT1 => pxl_clk);
+    
+    bram_inst_1 : BlockRAM_1KB 
+    port map(
+    clk => pxl_clk, 
+    rd_addr => bram_1_rd_addr, 
+    rd_data => bram_1_rd_data, 
+    wr_addr => bram_1_wr_addr,
+    wr_data => bram_1_wr_data, 
+    C0 => '1', 
+    C1 => '0', 
+    C2 => '1', 
+    C3 => '0', 
+    C4 => '0',
+    C5 => '0' -- Todo, check if there is a pixel delay
+    );
+    
 
     vga_driver_inst : vga_driver
     port map
@@ -147,16 +187,16 @@ begin
 
         VGA_HS_O => VGA_HS_O,
         VGA_VS_O => VGA_VS_O,
-        VGA_R => VGA_R(1 downto 0),
-        VGA_B => VGA_B(1 downto 0),
-        VGA_G => VGA_G(1 downto 0));
+        VGA_R => VGA_R(3 downto 2),
+        VGA_B => VGA_B(3 downto 2),
+        VGA_G => VGA_G(3 downto 2));
         
-    VGA_R(3 downto 2) <="00";
-    VGA_G(3 downto 2) <="00";
-    VGA_B(3 downto 2) <="00";
+    VGA_R(1 downto 0) <="11";
+    VGA_G(1 downto 0) <="11";
+    VGA_B(1 downto 0) <="11";
     
     
-    cnt_process : process (pxl_clk)
+    fake_pattern_generate : process (pxl_clk)
         variable var_pxl_counter:integer range 0 to 307200;
     begin
         if rising_edge(pxl_clk) then
@@ -169,10 +209,38 @@ begin
                 wish_bone_data_i(1 downto 0) <= "00";
             end if;
             
-            wish_bone_data_i(7 downto 2) <= std_logic_vector(to_unsigned(var_pxl_counter,32)(5 downto 0));
+            -- orignal data to wishbone to fpga
+            --  wish_bone_data_i(7 downto 2) <= std_logic_vector(to_unsigned(var_pxl_counter,32)(5 downto 0));
+            
+            -- data store to bram -> data read from bram -> data send to wishbone to vga
+            
+            bram_1_rd_addr <= std_logic_vector(to_unsigned(var_pxl_counter,32)(9 downto 2)); -- 1 colume will be duplicate 4 time
+            bram_1_wr_addr <= std_logic_vector(to_unsigned(var_pxl_counter,32)(7 downto 0));
+            
+
+            -- 160, 320, 480, 640
+            if var_pxl_counter<160 then
+                bram_1_wr_data(5 downto 0) <= "000000";
+            elsif var_pxl_counter<320 and var_pxl_counter>160 then
+                bram_1_wr_data(5 downto 0) <= "010101";
+            elsif var_pxl_counter<480 then
+                bram_1_wr_data(5 downto 0) <= "101010";
+            else 
+                bram_1_wr_data(5 downto 0) <= "111111";
+            end if;
+            
+            bram_1_wr_data(5 downto 0) <= std_logic_vector(to_unsigned(var_pxl_counter,32)(5 downto 0));
+            
+            bram_1_wr_data(20) <= '1';
+            
+            bram_1_wr_data(17 downto 16) <= "00";
+            bram_1_wr_data(25 downto 24) <= "00";
+            
+            
+            wish_bone_data_i(7 downto 2) <= bram_1_wr_data(5 downto 0);-- bram_1_rd_data(5 downto 0);
             
         end if;
-    end process cnt_process;
+    end process fake_pattern_generate;
     
     led(0) <= VGA_HS_O_s; 
     led(1) <= VGA_VS_O_s;
