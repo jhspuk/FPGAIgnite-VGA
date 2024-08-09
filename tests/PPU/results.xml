@@ -1,0 +1,8 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1723204971" />
+    <testcase name="test_ppu" classname="test_ppu" file="/home/h/Documents/workspace/git/FPGAIgnite-VGA/tests/PPU/test_ppu.py" lineno="17" time="12.0500328540802" sim_time_ns="1904170.0" ratio_time="158021.97579529742">
+      <failure message="Test failed with RANDOM_SEED=1723204971" />
+    </testcase>
+  </testsuite>
+</testsuites>
