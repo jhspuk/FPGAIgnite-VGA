@@ -98,6 +98,8 @@ always @(posedge clk) begin
 				data_o [7:6] <= (v_count ^ h_count) > 0 ? ring_line[7:6] : 0;
 				data_o [5:4] <= (v_count ^ h_count) > 0 ? ring_line[5:4] : 0;
 				data_o [3:2] <= (v_count ^ h_count) > 0 ? ring_line[3:2] : 0;
+				data_o [3:2] <= (v_count ^ h_count) > 0 ? ring_line[3:2] : 0;
+				data_o [1:0] <= 0;
 			end
 			3'd2: begin
 				data_o [7] <= (v_count ^ h_count + 1) < 1;
@@ -106,6 +108,8 @@ always @(posedge clk) begin
 				data_o [4] <= (v_count ^ h_count) < 1;
 				data_o [3] <= (v_count ^ h_count - 1) < 1;
 				data_o [2] <= (v_count ^ h_count - 1) < 1;
+				data_o [1:0] <= 0;
+
 			end
 			3'd3: begin
 				data_o [7] <= (v_count ^ h_count) % 7 < 1; 
@@ -114,6 +118,8 @@ always @(posedge clk) begin
 				data_o [4] <= (v_count ^ h_count) % 7 < 1;
 				data_o [3] <= (v_count ^ h_count) % 7 < 1;
 				data_o [2] <= (v_count ^ h_count) % 7 < 1;
+				data_o [1:0] <= 0;
+
 			end
 			3'd4: begin
 				data_o [7] <= ((v_count + counter) ^ h_count) % 7 < 1; 
@@ -122,6 +128,8 @@ always @(posedge clk) begin
 				data_o [4] <= ((v_count + counter + counter) ^ h_count) % 7 < 1;
 				data_o [3] <= (v_count ^ h_count) % 7 < 1;
 				data_o [2] <= (v_count ^ h_count) % 7 < 1;
+				data_o [1:0] <= 0;
+
 
 			end	
 			3'd5: begin
