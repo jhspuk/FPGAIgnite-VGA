@@ -1,0 +1,8 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1723146655" />
+    <testcase name="run_test" classname="tb_parallel_p" file="/home/h/Documents/workspace/git/FPGAIgnite-VGA/tests/parallel_1/tb_parallel_p.py" lineno="26" time="0.003703594207763672" sim_time_ns="525.001" ratio_time="141754.46081524398">
+      <failure message="Test failed with RANDOM_SEED=1723146655" />
+    </testcase>
+  </testsuite>
+</testsuites>
