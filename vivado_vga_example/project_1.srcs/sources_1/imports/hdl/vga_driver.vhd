@@ -59,11 +59,17 @@ architecture Behavioral of vga_driver is
     signal vga_red_reg : std_logic_vector(1 downto 0) := (others =>'0');
     signal vga_green_reg : std_logic_vector(1 downto 0) := (others =>'0');
     signal vga_blue_reg : std_logic_vector(1 downto 0) := (others =>'0');
+    signal vga_red_s, vga_green_s, vga_blue_s: std_logic_vector(1 downto 0) := (others =>'0');
     
     begin
       
        
     pxl_clk <= VGA_CLK_I;
+    
+    vga_red_s <= vga_red;
+    vga_green_s <= vga_green;
+    vga_blue_s <= vga_blue;
+    
       
 
 --    vga_red <= WB_DAT_I(3 downto 0);
@@ -127,9 +133,9 @@ architecture Behavioral of vga_driver is
         if (rising_edge(pxl_clk)) then
           v_sync_dly_reg <= v_sync_reg;
           h_sync_dly_reg <= h_sync_reg;
-          vga_red_reg <= vga_red;
-          vga_green_reg <= vga_green;
-          vga_blue_reg <= vga_blue;
+          vga_red_reg <= vga_red_s;
+          vga_green_reg <= vga_green_s;
+          vga_blue_reg <= vga_blue_s;
         end if;
       end process;
     

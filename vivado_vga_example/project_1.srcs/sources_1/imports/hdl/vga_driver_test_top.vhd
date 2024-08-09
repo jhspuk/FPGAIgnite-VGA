@@ -111,7 +111,6 @@ architecture Behavioral of vga_driver_test_top is
     
 
     signal pxl_clk : std_logic;
-    signal pxl_counter : STD_LOGIC_VECTOR(63 downto 0);
     
         -- Signals from VGA module
     signal vga_red : std_logic_vector(1 downto 0);
@@ -129,6 +128,8 @@ architecture Behavioral of vga_driver_test_top is
     signal bram_1_rd_addr, bram_1_wr_addr : std_logic_vector(7 downto 0);
     
     signal bram_1_rd_data,bram_1_wr_data : std_logic_vector(31 downto 0);
+    signal VGA_R_s, VGA_G_s, VGA_B_s : std_logic_vector(3 downto 0);
+    signal var_pxl_counter : unsigned(31 downto 0) := to_unsigned(0,32);
     
 begin
     wishbone_receiver_inst : wishbone_receiver
@@ -185,19 +186,25 @@ begin
 
         VGA_CLK_I => pxl_clk,
 
-        VGA_HS_O => VGA_HS_O,
-        VGA_VS_O => VGA_VS_O,
-        VGA_R => VGA_R(3 downto 2),
-        VGA_B => VGA_B(3 downto 2),
-        VGA_G => VGA_G(3 downto 2));
+        VGA_HS_O => VGA_HS_O_s,
+        VGA_VS_O => VGA_VS_O_s,
+        VGA_R => VGA_R_s(3 downto 2),
+        VGA_B => VGA_G_s(3 downto 2),
+        VGA_G => VGA_B_s(3 downto 2)
+        );
         
-    VGA_R(1 downto 0) <="11";
-    VGA_G(1 downto 0) <="11";
-    VGA_B(1 downto 0) <="11";
+    VGA_R_s(1 downto 0) <="11";
+    VGA_G_s(1 downto 0) <="11";
+    VGA_B_s(1 downto 0) <="11";
     
+    VGA_R <= VGA_R_s;
+    VGA_G <= VGA_G_s;
+    VGA_B <= VGA_B_s;
+
     
-    
-    fake_pattern_generate : process (pxl_clk)
+ 
+
+fake_pattern_generate : process (pxl_clk)
         variable var_pxl_counter:integer range 0 to 307200;
     begin
         if rising_edge(pxl_clk) then
@@ -215,30 +222,31 @@ begin
             
             -- data store to bram -> data read from bram -> data send to wishbone to vga
             
-            bram_1_rd_addr <= std_logic_vector(to_unsigned(var_pxl_counter,32)(7 downto 0)); -- 1 colume will be duplicate 4 time
+            bram_1_rd_addr <= std_logic_vector(to_unsigned(var_pxl_counter,32)(9 downto 2)); -- 1 colume will be duplicate 4 time
             bram_1_wr_addr <= std_logic_vector(to_unsigned(var_pxl_counter,32)(7 downto 0));
             
 
             -- 160, 320, 480, 640
-            if var_pxl_counter<160 then
+            if (var_pxl_counter mod 640)<160 then
                 bram_1_wr_data(5 downto 0) <= "000000";
-            elsif var_pxl_counter<320 and var_pxl_counter>160 then
+            elsif (var_pxl_counter mod 640)<320 and (var_pxl_counter mod 640)>160 then
                 bram_1_wr_data(5 downto 0) <= "010101";
-            elsif var_pxl_counter<480 then
+            elsif (var_pxl_counter mod 640)<480 then
                 bram_1_wr_data(5 downto 0) <= "101010";
             else 
                 bram_1_wr_data(5 downto 0) <= "111111";
             end if;
             
-            bram_1_wr_data(5 downto 0) <= std_logic_vector(to_unsigned(var_pxl_counter,32)(5 downto 0));
+--            bram_1_wr_data(5 downto 0) <= std_logic_vector(to_unsigned(var_pxl_counter,32)(5 downto 0));
             
+            -- BRAM logics special
             bram_1_wr_data(20) <= '1';
             
             bram_1_wr_data(17 downto 16) <= "00";
             bram_1_wr_data(25 downto 24) <= "00";
+            -- BRAM logics special
             
-            
-            wish_bone_data_i(7 downto 2) <= bram_1_rd_data(5 downto 0);
+            wish_bone_data_i(7 downto 2) <= bram_1_wr_data(5 downto 0);-- bram_1_rd_data(5 downto 0);
             
         end if;
     end process fake_pattern_generate;
