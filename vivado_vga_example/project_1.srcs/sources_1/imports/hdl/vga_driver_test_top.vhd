@@ -196,6 +196,7 @@ begin
     VGA_B(1 downto 0) <="11";
     
     
+    
     fake_pattern_generate : process (pxl_clk)
         variable var_pxl_counter:integer range 0 to 307200;
     begin
@@ -214,7 +215,7 @@ begin
             
             -- data store to bram -> data read from bram -> data send to wishbone to vga
             
-            bram_1_rd_addr <= std_logic_vector(to_unsigned(var_pxl_counter,32)(9 downto 2)); -- 1 colume will be duplicate 4 time
+            bram_1_rd_addr <= std_logic_vector(to_unsigned(var_pxl_counter,32)(7 downto 0)); -- 1 colume will be duplicate 4 time
             bram_1_wr_addr <= std_logic_vector(to_unsigned(var_pxl_counter,32)(7 downto 0));
             
 
@@ -237,7 +238,7 @@ begin
             bram_1_wr_data(25 downto 24) <= "00";
             
             
-            wish_bone_data_i(7 downto 2) <= bram_1_wr_data(5 downto 0);-- bram_1_rd_data(5 downto 0);
+            wish_bone_data_i(7 downto 2) <= bram_1_rd_data(5 downto 0);
             
         end if;
     end process fake_pattern_generate;
