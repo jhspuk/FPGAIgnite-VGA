@@ -94,17 +94,17 @@ module top_vga_test #(parameter CORDW=10) (  // coordinate width
             state = IDLE;
             ppu_counter <= 0;
             ppu_mode <= 3'(1); //4 is the mode has interesting pattern
-            $display("reseting");
+            // $display("reseting");
         end else begin
            
             if (state==IDLE) begin
-                $display("idle");
+                // $display("idle");
                 ppu_data_i = 8'b0;
                 ppu_stb_i = 1'b0;
                 state = SEND_DATA;
                 ppu_sync <= 1;
             end else if (state == SEND_DATA) begin
-                $display("sends data");
+                // $display("sends data");
                 ppu_data_i = test_data[ppu_counter];
                 ppu_stb_i = 1'b1;
 
@@ -118,7 +118,7 @@ module top_vga_test #(parameter CORDW=10) (  // coordinate width
                     end
                 end
 
-                $display("ppu_counter: %0d", ppu_counter);
+                // $display("ppu_counter: %0d", ppu_counter);
             end else if (state==RUN) begin
                 wb_data[7:2] = ppu_data_o[7:2];
                 ppu_sync <= 0;
@@ -160,9 +160,9 @@ module top_vga_test #(parameter CORDW=10) (  // coordinate width
     // display colour: paint colour but black in blanking interval
     logic [3:0] display_r, display_g, display_b;
     always_comb begin
-        display_r = (de) ? {{vga_r},{2'b00}} : 4'h0;
-        display_g = (de) ? {{vga_g},{2'b00}} : 4'h0;
-        display_b = (de) ? {{vga_b},{2'b00}} : 4'h0;
+        display_r = (de) ? {2{vga_r}} : 4'h0;
+        display_g = (de) ? {2{vga_g}} : 4'h0;
+        display_b = (de) ? {2{vga_b}} : 4'h0;
     end
 
     // SDL output (8 bits per colour channel)
@@ -170,9 +170,9 @@ module top_vga_test #(parameter CORDW=10) (  // coordinate width
         sdl_sx <= sx;
         sdl_sy <= sy;
         sdl_de <= de;
-        sdl_r <= {{display_r},{4'b0000}};  // double signal width from 4 to 8 bits
-        sdl_g <= {{display_g},{4'b0000}};
-        sdl_b <= {{display_b},{4'b0000}};
+        sdl_r <= {2{display_r}};  // double signal width from 4 to 8 bits
+        sdl_g <= {2{display_g}};
+        sdl_b <= {2{display_b}};
         // $display("sdl_r: %0d,%0d,%0d", sdl_r, sdl_g, sdl_b);
     end
 endmodule

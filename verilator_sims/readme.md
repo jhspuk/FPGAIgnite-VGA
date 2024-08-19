@@ -21,13 +21,7 @@ If this is the first time you've used Verilator and SDL, you need to [install de
 
 Make sure you're in the sim directory `verilator_sims`.
 
-Build a specific simulation (square):
-
-```shell
-make square
-```
-
-Or build all simulations:
+build all simulations:
 
 ```shell
 make all
@@ -38,7 +32,8 @@ Run the simulation executables from `obj_dir`:
 ```shell
 ./obj_dir/vga_test
 ```
-
+You will see a window with some colored squares like this:
+![alt text](images/image.png)
 You can quit the simulation by pressing the **Q** key.
 
 
