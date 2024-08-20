@@ -23,9 +23,6 @@ parameter buffer_index_bits = 4;
 parameter buffer_index_bits_both = (buffer_index_bits + 1) * 2 - 1;
 parameter buffer_size = buffer_num * 8 - 1;
 
-reg [buffer_index_bits:0] h_count; 
-reg [buffer_index_bits:0] v_count;
-
 reg [10:0] counter;
 
 reg [(buffer_num * 8) - 1:0] ring_line;
@@ -43,15 +40,11 @@ always @(posedge clk or posedge rst) begin
 	if ( (rst==1'b1) || (sync==1) ) begin
 		sx <= 0;
 		sy <= 0;
-		h_count <= 0;
-		v_count <= 0;
 	end else begin
 		if (sx == LINE) begin  // last pixel on line?
 			sx <= 0;
 			if (sy == SCREEN) begin  // last pixel on line?
 				sy <= 0;
-				h_count <= 0;
-				v_count <= 0;
 			end else begin
 				sy <= sy + 1;
 			end
@@ -59,23 +52,6 @@ always @(posedge clk or posedge rst) begin
 			sx <= sx + 1;
 		end
 
-		if (output_available) begin
-			if (v_count == 5'(buffer_num - 1)) begin
-				if (h_count == 5'(buffer_num - 1)) begin
-					h_count <= 0;
-				end else begin
-					h_count <= h_count + 1;
-				end
-				v_count <= 0;
-			end else begin
-				if (h_count == 5'(buffer_num - 1)) begin
-					h_count <= 0;
-				end else begin
-					h_count <= h_count + 1;
-				end
-				v_count <= v_count + 1;
-			end
-		end
 	end
 end
 
