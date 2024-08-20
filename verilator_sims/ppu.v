@@ -23,7 +23,8 @@ parameter buffer_index_bits = 4;
 parameter buffer_index_bits_both = (buffer_index_bits + 1) * 2 - 1;
 parameter buffer_size = buffer_num * 8 - 1;
 
-reg [10:0] counter;
+
+reg [9:0] counter;
 
 reg [(buffer_num * 8) - 1:0] ring_line;
 reg [buffer_index_bits:0] ring_index;
@@ -34,17 +35,19 @@ parameter LINE = 799;
 parameter SCREEN = 524;
 reg [9:0] sx;
 reg [9:0] sy;
-
+reg frame_alternate;
 // calculate horizontal and vertical screen position
 always @(posedge clk or posedge rst) begin
 	if ( (rst==1'b1) || (sync==1) ) begin
 		sx <= 0;
 		sy <= 0;
+		frame_alternate <= 0;
 	end else begin
 		if (sx == LINE) begin  // last pixel on line?
 			sx <= 0;
 			if (sy == SCREEN) begin  // last pixel on line?
 				sy <= 0;
+				frame_alternate <= ~frame_alternate;
 			end else begin
 				sy <= sy + 1;
 			end
@@ -55,17 +58,18 @@ always @(posedge clk or posedge rst) begin
 	end
 end
 
-reg [24:0] counter_div_cnt;
-always @(posedge clk or posedge rst) begin
+reg [7:0] frame_counter;
+always @(posedge frame_alternate or posedge rst) begin
 	if (rst) begin
-		counter_div_cnt <= 0;
-		counter <= 0;
+		frame_counter <= 0;
 	end else begin
-		if (counter_div_cnt == 25000000) begin
-			counter_div_cnt <= 0;
-			counter <= counter + 1;
-		end else begin
-			counter_div_cnt <= counter_div_cnt + 1;
+		if (frame_alternate) begin
+			frame_counter <= frame_counter + 1;
+			if (frame_counter == 1) begin
+				frame_counter <= 0;
+				// now we can update the counter, thus the pattern shifts
+				counter <= counter + 1;
+			end
 		end
 	end	
 end
@@ -87,6 +91,10 @@ always @(posedge clk or posedge rst) begin
 	end	
 end
 
+logic [9:0] random_pattern;
+logic [9:0] pixel_pattern_r;
+logic [9:0] pixel_pattern_g;
+logic [9:0] pixel_pattern_b;
 //output handshake
 always @(posedge clk) begin
 	
@@ -136,32 +144,43 @@ always @(posedge clk) begin
 
 			end
 			3'd3: begin
-				// data_o [7] <= (v_count ^ h_count) % 7 < 1; 
-				// data_o [6] <= (v_count ^ h_count) % 7 < 1; 
-				// data_o [5] <= (v_count ^ h_count) % 7 < 1;
-				// data_o [4] <= (v_count ^ h_count) % 7 < 1;
-				// data_o [3] <= (v_count ^ h_count) % 7 < 1;
-				// data_o [2] <= (v_count ^ h_count) % 7 < 1;
-				// data_o [1:0] <= 0;
+				random_pattern <= ring_line[9:0];
+				pixel_pattern_r <=  (((((sx>>1)+counter) ^ ((sy>>1)+counter)) %7) | ((((sx>>1)+counter) ^ ((sy>>1)+counter)) %11)) ^ random_pattern;
+				pixel_pattern_g <=  (((((sx>>1)+counter) ^ ((sy>>1)+counter)) %7) | ((((sx>>1)+counter) ^ ((sy>>1)+counter)) %11)) ^ (random_pattern>>2);
+				pixel_pattern_b <=  (((((sx>>1)+counter+3) ^ ((sy>>1)+counter+3)) %7) | ((((sx>>1)+counter+3) ^ ((sy>>1)+counter+3)) %11))  ^ (random_pattern>>4);
+
+				data_o [7:6] <= {2{pixel_pattern_r[0]}};
+				data_o [5:4] <= {2{pixel_pattern_g[0]}};
+				data_o [3:2] <= {2{pixel_pattern_b[0]}};
+				data_o [1:0] <= 0;
 
 			end
 			3'd4: begin
-				// data_o [7] <= ((v_count + counter) ^ h_count) % 7 < 1; 
-				// data_o [6] <= ((v_count + counter) ^ h_count) % 7 < 1; 
-				// data_o [5] <= ((v_count + counter + counter) ^ h_count) % 7 < 1;
-				// data_o [4] <= ((v_count + counter + counter) ^ h_count) % 7 < 1;
-				// data_o [3] <= (v_count ^ h_count) % 7 < 1;
-				// data_o [2] <= (v_count ^ h_count) % 7 < 1;
-				// data_o [1:0] <= 0;
+				data_o [7] <= (((sy>>2) + counter) ^ (sx>>2) ) % 7 < 1; 
+				data_o [6] <= (((sy>>2) + counter) ^ (sx>>2)) % 7 < 1; 
+				data_o [5] <= (((sy) + counter + counter) ^ (sx)) % 7 < 1;
+				data_o [4] <= (((sy) + counter + counter) ^ (sx)) % 7 < 1;
+				data_o [3] <= ((sy>>2) ^ (sx>>2)) % 7 < 1;
+				data_o [2] <= ((sy>>2) ^ (sx>>2)) % 7 < 1;
+				data_o [1:0] <= 0;
 				
 			end	
 			3'd5: begin
-				// data_o [7:6] <= 0'b01; 
-				// data_o [5:4] <= 0'b11;;
-				// data_o [3:2] <= 0'b01;;
-				// data_o [1:0] <= 0;
+
+				data_o[7:6] <= (((sy >> 3) + (counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b11 : 2'b00; // Red
+				data_o[5:4] <= (((sy >> 3) + (counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b10 : 2'b00; // Green
+				data_o[3:2] <= (((sy >> 3) + (counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b01 : 2'b00; // Blue
+				data_o[1:0] <= 2'b00; 
+
+				// Adding shadow
+				if ((((sy >> 3) + (counter >> 2) + 1) ^ (sx >> 3)) % 9 < 1) begin
+					data_o[7:6] <= 2'b01; // Darker Red
+					data_o[5:4] <= 2'b01; // Darker Green
+					data_o[3:2] <= 2'b01; // Darker Blue
+				end
 			end
 			3'd6: begin
+				
 			end
 			3'd7: begin
 			end

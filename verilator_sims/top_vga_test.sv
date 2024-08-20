@@ -29,7 +29,7 @@ module top_vga_test #(parameter CORDW=10) (  // coordinate width
         test_data[6] = 8'd76;
         test_data[7] = 8'd34;
         test_data[8] = 8'd210;
-        test_data[9] = 8'd99;
+        test_data[9] = 8'b10110110;
     end
 
     // display sync signals and coordinates
@@ -93,7 +93,7 @@ module top_vga_test #(parameter CORDW=10) (  // coordinate width
         if (sim_rst) begin
             state = IDLE;
             ppu_counter <= 0;
-            ppu_mode <= 3'(1); //4 is the mode has interesting pattern
+            ppu_mode <= 3'(5); //4 is the mode has interesting pattern
             // $display("reseting");
         end else begin
            

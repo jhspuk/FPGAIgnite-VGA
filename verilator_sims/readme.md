@@ -34,6 +34,7 @@ Run the simulation executables from `obj_dir`:
 ```
 You will see a window with some colored squares like this:
 ![alt text](images/image.png)
+and by change `ppu_mode` in top_vga_test.sv you can see different patterns.
 You can quit the simulation by pressing the **Q** key.
 
 
