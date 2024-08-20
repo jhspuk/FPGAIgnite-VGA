@@ -152,13 +152,11 @@ always @(posedge clk) begin
 				
 			end
 			3'd2: begin
-				// data_o [7] <= (v_count ^ h_count + 1) < 1;
-				// data_o [6] <= (v_count ^ h_count + 1) < 2;
-				// data_o [5] <= (v_count ^ h_count) < 1;
-				// data_o [4] <= (v_count ^ h_count) < 1;
-				// data_o [3] <= (v_count ^ h_count - 1) < 1;
-				// data_o [2] <= (v_count ^ h_count - 1) < 1;
-				// data_o [1:0] <= 0;
+				// vertical color stripes
+				data_o [7:6] <= {2{sx[5]}};
+				data_o [5:4] <= {2{sx[6]}};
+				data_o [3:2] <= {2{sx[7]}};
+				data_o [1] <= 0;
 
 			end
 			3'd3: begin
