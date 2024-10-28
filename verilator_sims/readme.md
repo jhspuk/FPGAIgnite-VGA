@@ -1,11 +1,8 @@
 # Simulation of the VGA driver and PPU with Verilator so we are free from hardware constraints.
 
-
-
 This folder contains Verilator simulations for debug our VGA driver.
 
 [Verilator](https://www.veripool.org/verilator/) creates C++ simulations of Verilog designs, while [SDL](https://www.libsdl.org) produces simple cross-platform graphics applications. By combining the two, you can simulate a hardware design on your PC: no dev board required! Verilator is fast, but it's still much slower than an FPGA. However, for these simple designs, you can reach 60 FPS on a modern PC.
-
 
 ## Tested Versions
 
