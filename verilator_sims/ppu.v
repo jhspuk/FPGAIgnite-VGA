@@ -23,9 +23,6 @@ parameter buffer_index_bits = 4;
 parameter buffer_index_bits_both = (buffer_index_bits + 1) * 2 - 1;
 parameter buffer_size = buffer_num * 8 - 1;
 
-
-reg [9:0] counter;
-
 reg [(buffer_num * 8) - 1:0] ring_line;
 reg [buffer_index_bits:0] ring_index;
 
@@ -36,6 +33,7 @@ parameter SCREEN = 524;
 reg [9:0] sx;
 reg [9:0] sy;
 reg frame_alternate;
+
 // calculate horizontal and vertical screen position
 always @(posedge clk or posedge rst) begin
 	if ( (rst==1'b1) || (sync==1) ) begin
@@ -54,11 +52,11 @@ always @(posedge clk or posedge rst) begin
 		end else begin
 			sx <= sx + 1;
 		end
-
 	end
 end
 
 reg [7:0] frame_counter;
+reg [9:0] pattern_counter; // pattern shift counter
 always @(posedge frame_alternate or posedge rst) begin
 	if (rst) begin
 		frame_counter <= 0;
@@ -67,8 +65,8 @@ always @(posedge frame_alternate or posedge rst) begin
 			frame_counter <= frame_counter + 1;
 			if (frame_counter == 1) begin
 				frame_counter <= 0;
-				// now we can update the counter, thus the pattern shifts
-				counter <= counter + 1;
+				// now we can update the pattern_counter, thus the pattern moves
+				pattern_counter <= pattern_counter + 1;
 			end
 		end
 	end	
@@ -116,11 +114,11 @@ always @(posedge clk) begin
 		//create output data
 		case (mode)
 			3'd0: begin
-				data_o <= data_i;
+				data_o <= data_i; // ppu passthrough the input data
 			end
 			3'd1: begin
 				// same pattern as the one we show case in the hackthon
-				if (((((sy+counter) ^ (sx+counter))%7) | (((sy+counter) ^ (sx+counter))%9))>1)  begin
+				if (((((sy+pattern_counter) ^ (sx+pattern_counter))%7) | (((sy+pattern_counter) ^ (sx+pattern_counter))%9))>1)  begin
 					data_o[7:6] <= 2'b00;
 					data_o[5:4] <= 2'b11;
 				end else begin
@@ -128,7 +126,7 @@ always @(posedge clk) begin
 					data_o[5:4] <= 2'b00;
 				end
 
-				if (((((sy+counter+1) ^ (sx+counter+1))%7) | (((sy+counter+1) ^ (sx+counter+1))%9))>1)  begin
+				if (((((sy+pattern_counter+1) ^ (sx+pattern_counter+1))%7) | (((sy+pattern_counter+1) ^ (sx+pattern_counter+1))%9))>1)  begin
 					data_o[3:2] <= 2'b00;
 				end else begin
 					data_o[3:2] <= 2'b11;
@@ -145,9 +143,9 @@ always @(posedge clk) begin
 			end
 			3'd3: begin
 				random_pattern <= ring_line[9:0];
-				pixel_pattern_r <=  (((((sx>>1)+counter) ^ ((sy>>1)+counter)) %7) | ((((sx>>1)+counter) ^ ((sy>>1)+counter)) %11)) ^ random_pattern;
-				pixel_pattern_g <=  (((((sx>>1)+counter) ^ ((sy>>1)+counter)) %7) | ((((sx>>1)+counter) ^ ((sy>>1)+counter)) %11)) ^ (random_pattern>>2);
-				pixel_pattern_b <=  (((((sx>>1)+counter+3) ^ ((sy>>1)+counter+3)) %7) | ((((sx>>1)+counter+3) ^ ((sy>>1)+counter+3)) %11))  ^ (random_pattern>>4);
+				pixel_pattern_r <=  (((((sx>>1)+pattern_counter) ^ ((sy>>1)+pattern_counter)) %7) | ((((sx>>1)+pattern_counter) ^ ((sy>>1)+pattern_counter)) %11)) ^ random_pattern;
+				pixel_pattern_g <=  (((((sx>>1)+pattern_counter) ^ ((sy>>1)+pattern_counter)) %7) | ((((sx>>1)+pattern_counter) ^ ((sy>>1)+pattern_counter)) %11)) ^ (random_pattern>>2);
+				pixel_pattern_b <=  (((((sx>>1)+pattern_counter+3) ^ ((sy>>1)+pattern_counter+3)) %7) | ((((sx>>1)+pattern_counter+3) ^ ((sy>>1)+pattern_counter+3)) %11))  ^ (random_pattern>>4);
 
 				data_o [7:6] <= {2{pixel_pattern_r[0]}};
 				data_o [5:4] <= {2{pixel_pattern_g[0]}};
@@ -156,10 +154,10 @@ always @(posedge clk) begin
 
 			end
 			3'd4: begin
-				data_o [7] <= (((sy>>2) + counter) ^ (sx>>2) ) % 7 < 1; 
-				data_o [6] <= (((sy>>2) + counter) ^ (sx>>2)) % 7 < 1; 
-				data_o [5] <= (((sy) + counter + counter) ^ (sx)) % 7 < 1;
-				data_o [4] <= (((sy) + counter + counter) ^ (sx)) % 7 < 1;
+				data_o [7] <= (((sy>>2) + pattern_counter) ^ (sx>>2) ) % 7 < 1; 
+				data_o [6] <= (((sy>>2) + pattern_counter) ^ (sx>>2)) % 7 < 1; 
+				data_o [5] <= (((sy) + pattern_counter + pattern_counter) ^ (sx)) % 7 < 1;
+				data_o [4] <= (((sy) + pattern_counter + pattern_counter) ^ (sx)) % 7 < 1;
 				data_o [3] <= ((sy>>2) ^ (sx>>2)) % 7 < 1;
 				data_o [2] <= ((sy>>2) ^ (sx>>2)) % 7 < 1;
 				data_o [1:0] <= 0;
@@ -167,22 +165,23 @@ always @(posedge clk) begin
 			end	
 			3'd5: begin
 
-				data_o[7:6] <= (((sy >> 3) + (counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b11 : 2'b00; // Red
-				data_o[5:4] <= (((sy >> 3) + (counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b10 : 2'b00; // Green
-				data_o[3:2] <= (((sy >> 3) + (counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b01 : 2'b00; // Blue
+				data_o[7:6] <= (((sy >> 3) + (pattern_counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b11 : 2'b00; // Red
+				data_o[5:4] <= (((sy >> 3) + (pattern_counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b10 : 2'b00; // Green
+				data_o[3:2] <= (((sy >> 3) + (pattern_counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b01 : 2'b00; // Blue
 				data_o[1:0] <= 2'b00; 
 
 				// Adding shadow
-				if ((((sy >> 3) + (counter >> 2) + 1) ^ (sx >> 3)) % 9 < 1) begin
+				if ((((sy >> 3) + (pattern_counter >> 2) + 1) ^ (sx >> 3)) % 9 < 1) begin
 					data_o[7:6] <= 2'b01; // Darker Red
 					data_o[5:4] <= 2'b01; // Darker Green
 					data_o[3:2] <= 2'b01; // Darker Blue
 				end
 			end
 			3'd6: begin
-				
+				// empty
 			end
 			3'd7: begin
+				// empty
 			end
 			
 

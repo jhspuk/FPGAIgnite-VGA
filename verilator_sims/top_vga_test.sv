@@ -93,7 +93,7 @@ module top_vga_test #(parameter CORDW=10) (  // coordinate width
         if (sim_rst) begin
             state = IDLE;
             ppu_counter <= 0;
-            ppu_mode <= 3'(5); //4 is the mode has interesting pattern
+            ppu_mode <= 3'(0); //4 is the mode has interesting pattern
             // $display("reseting");
         end else begin
            
@@ -127,35 +127,6 @@ module top_vga_test #(parameter CORDW=10) (  // coordinate width
             end
         end
     end
-    
-
-    // define a square with screen coordinates
-    // logic square;
-    // logic [CORDW-1:0] square_x, square_y;
-    // logic [32:0] counter;
-    // always @(posedge clk_pix) begin
-    //     if (sim_rst) begin
-    //         square_x <= 100;
-    //         square_y <= 100;
-    //         counter <= 0;
-    //     end
-    //     counter <= (counter == 250000) ? 0 : counter + 1;
-    //     if (counter == 0) begin
-    //         square_x <= (square_x == 200) ? 100 : square_x + 1;
-    //         square_y <= (square_y == 200) ? 100 : square_y + 1;
-    //     end
-    //     square = (sx > square_x && sx < square_x+200) && (sy > square_y && sy < square_y+200);
-    // end
-
-    // paint colour: white inside square, blue outside
-    // logic [1:0] paint_r, paint_g, paint_b;
-    // always_comb begin
-    //     paint_r = (square) ? 2'b11 : 2'b01;
-    //     paint_g = (square) ? 2'b11 : 2'b10;
-    //     paint_b = (square) ? 2'b11 : 2'b10;
-    //     // wb_data[7:2] = {paint_r, paint_g, paint_b};
-    //     // wb_data[1:0] = 2'b00;
-    // end
 
     // display colour: paint colour but black in blanking interval
     logic [3:0] display_r, display_g, display_b;
