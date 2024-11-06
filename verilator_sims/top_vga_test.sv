@@ -93,7 +93,7 @@ module top_vga_test #(parameter CORDW=10) (  // coordinate width
         if (sim_rst) begin
             state = IDLE;
             ppu_counter <= 0;
-            ppu_mode <= 3'(0); //4 is the mode has interesting pattern
+            ppu_mode <= 3'(3); //4 is the mode has interesting pattern
             // $display("reseting");
         end else begin
            
