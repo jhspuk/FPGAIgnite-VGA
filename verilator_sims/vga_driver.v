@@ -1,7 +1,3 @@
-// Project F: FPGA Graphics - Simple 640x480p60 Display
-// (C)2023 Will Green, open source hardware released under the MIT License
-// Learn more at https://projectf.io/posts/fpga-graphics/
-
 `timescale 1ns / 1ps
 
 module vga_driver (
@@ -37,8 +33,8 @@ module vga_driver (
     end
 
     // calculate horizontal and vertical screen position
-    always @(posedge clk_pix or posedge rst_pix) begin
-        if ( rst_pix==1'b1 || (wb_data[1:0] == 2'b11)) begin
+    always @(posedge clk_pix or negedge rst_pix) begin
+        if ( rst_pix==1'b0 || (wb_data[1:0] == 2'b11)) begin
             sx <= 0;
             sy <= 0;
         end else begin

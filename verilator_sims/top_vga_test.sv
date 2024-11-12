@@ -89,11 +89,11 @@ module top_vga_test #(parameter CORDW=10) (  // coordinate width
     state_t state;
     logic [3:0] ppu_counter;
     // State machine
-    always_ff @(posedge clk_pix or posedge sim_rst) begin
-        if (sim_rst) begin
+    always_ff @(posedge clk_pix or negedge sim_rst) begin
+        if (!sim_rst) begin
             state = IDLE;
             ppu_counter <= 0;
-            ppu_mode <= 3'(3); //4 is the mode has interesting pattern
+            ppu_mode <= 3'(4); //4 is the mode has interesting pattern
             // $display("reseting");
         end else begin
            

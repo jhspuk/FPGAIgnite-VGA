@@ -62,12 +62,12 @@ int main(int argc, char* argv[]) {
     Vtop_vga_test* top = new Vtop_vga_test;
 
     // reset
-    top->sim_rst = 1;
+    top->sim_rst = 0;
     top->clk_pix = 0;
     top->eval();
     top->clk_pix = 1;
     top->eval();
-    top->sim_rst = 0;
+    top->sim_rst = 1;
     top->clk_pix = 0;
     top->eval();
 

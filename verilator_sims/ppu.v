@@ -1,4 +1,3 @@
-`default_nettype none
 `timescale 1ns / 1ps
 
 module ppu(
@@ -35,8 +34,8 @@ reg [9:0] sy;
 reg frame_alternate;
 
 // calculate horizontal and vertical screen position
-always @(posedge clk or posedge rst) begin
-	if ( (rst==1'b1) || (sync==1) ) begin
+always @(posedge clk or negedge rst) begin
+	if ( (rst==1'b0) || (sync==1) ) begin
 		sx <= 0;
 		sy <= 0;
 		frame_alternate <= 0;
@@ -57,8 +56,8 @@ end
 
 reg [7:0] frame_counter;
 reg [9:0] pattern_counter; // pattern shift counter
-always @(posedge frame_alternate or posedge rst) begin
-	if (rst) begin
+always @(posedge frame_alternate or negedge rst) begin
+	if (!rst) begin
 		frame_counter <= 0;
 	end else begin
 		if (frame_alternate) begin
@@ -74,8 +73,8 @@ end
 
 
 //input handshake, read in
-always @(posedge clk or posedge rst) begin
-	if (rst) begin
+always @(posedge clk or negedge rst) begin
+	if (!rst) begin
 		ring_line[255:0] <= {256{1'b0}};
 		ring_index <= 0;
 		ack_i <= 1'b0;
@@ -96,7 +95,7 @@ logic [9:0] pixel_pattern_b;
 //output handshake
 always @(posedge clk) begin
 	
-	if (rst) begin
+	if (!rst) begin
 		data_o <= 0;
 		stb_o <= 0;
 		output_available <= 1;
