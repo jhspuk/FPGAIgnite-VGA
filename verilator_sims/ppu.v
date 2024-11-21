@@ -3,15 +3,15 @@
 module ppu(
 	input wire clk,
 	input wire rst,
-	
+
 	input wire sync,
-	
+
 	input wire [2:0] mode,
 
 	input wire [7:0] data_i,
 	input wire stb_i,
 	output reg ack_i,
-	
+
 	output reg [7:0] data_o,
 	output reg stb_o,
 	input wire ack_o
@@ -19,10 +19,11 @@ module ppu(
 
 parameter buffer_num = 32;
 parameter buffer_index_bits = 4;
-parameter buffer_index_bits_both = (buffer_index_bits + 1) * 2 - 1;
 parameter buffer_size = buffer_num * 8 - 1;
 
-reg [(buffer_num * 8) - 1:0] ring_line;
+/* verilator lint_off UNUSEDSIGNAL*/
+reg [(buffer_num * 8) - 1:0] ring_line; // bits 256 - 248 seem to be unused
+/* verilator lint_on UNUSEDSIGNAL*/
 reg [buffer_index_bits:0] ring_index;
 
 reg output_available;
@@ -32,14 +33,16 @@ parameter SCREEN = 524;
 reg [9:0] sx;
 reg [9:0] sy;
 reg frame_alternate;
+reg frame_alternate_delayed;
 
 // calculate horizontal and vertical screen position
-always @(posedge clk or negedge rst) begin
+always @(posedge clk or negedge rst ) begin
 	if ( (rst==1'b0) || (sync==1) ) begin
 		sx <= 0;
 		sy <= 0;
 		frame_alternate <= 0;
 	end else begin
+    frame_alternate_delayed <= frame_alternate;
 		if (sx == LINE) begin  // last pixel on line?
 			sx <= 0;
 			if (sy == SCREEN) begin  // last pixel on line?
@@ -56,11 +59,11 @@ end
 
 reg [7:0] frame_counter;
 reg [9:0] pattern_counter; // pattern shift counter
-always @(posedge frame_alternate or negedge rst) begin
+always @(posedge clk or negedge rst) begin
 	if (!rst) begin
 		frame_counter <= 0;
 	end else begin
-		if (frame_alternate) begin
+		if (frame_alternate & !frame_alternate_delayed) begin //edge clk
 			frame_counter <= frame_counter + 1;
 			if (frame_counter == 1) begin
 				frame_counter <= 0;
@@ -68,7 +71,7 @@ always @(posedge frame_alternate or negedge rst) begin
 				pattern_counter <= pattern_counter + 1;
 			end
 		end
-	end	
+	end
 end
 
 
@@ -85,31 +88,33 @@ always @(posedge clk or negedge rst) begin
 		// $display("ring_line[7:0]: %d\n", ring_line[7:0]);
 	end else begin
 		ack_i <= 1'b0;
-	end	
+	end
 end
 
 logic [9:0] random_pattern;
+/* verilator lint_off UNUSEDSIGNAL */
 logic [9:0] pixel_pattern_r;
 logic [9:0] pixel_pattern_g;
 logic [9:0] pixel_pattern_b;
+/* verilator lint_off UNUSEDSIGNAL */
 //output handshake
-always @(posedge clk) begin
-	
+always @(posedge clk or negedge rst) begin
+
 	if (!rst) begin
 		data_o <= 0;
 		stb_o <= 0;
 		output_available <= 1;
-	end 
-	
+	end
+
 	if (ack_o==1) begin
-	
+
 		stb_o <= 0;
 		output_available <= 1'b1;
-	end 
-	
+	end
+
 	if (output_available) begin
 		//processing goes here
-		
+
 		//create output data
 		case (mode)
 			3'd0: begin
@@ -129,8 +134,8 @@ always @(posedge clk) begin
 					data_o[3:2] <= 2'b00;
 				end else begin
 					data_o[3:2] <= 2'b11;
-				end 
-				
+				end
+
 			end
 			3'd2: begin
 				// vertical color stripes
@@ -153,21 +158,21 @@ always @(posedge clk) begin
 
 			end
 			3'd4: begin
-				data_o [7] <= (((sy>>2) + pattern_counter) ^ (sx>>2) ) % 7 < 1; 
-				data_o [6] <= (((sy>>2) + pattern_counter) ^ (sx>>2)) % 7 < 1; 
+				data_o [7] <= (((sy>>2) + pattern_counter) ^ (sx>>2) ) % 7 < 1;
+				data_o [6] <= (((sy>>2) + pattern_counter) ^ (sx>>2)) % 7 < 1;
 				data_o [5] <= (((sy) + pattern_counter + pattern_counter) ^ (sx)) % 7 < 1;
 				data_o [4] <= (((sy) + pattern_counter + pattern_counter) ^ (sx)) % 7 < 1;
 				data_o [3] <= ((sy>>2) ^ (sx>>2)) % 7 < 1;
 				data_o [2] <= ((sy>>2) ^ (sx>>2)) % 7 < 1;
 				data_o [1:0] <= 0;
-				
-			end	
+
+			end
 			3'd5: begin
 
 				data_o[7:6] <= (((sy >> 3) + (pattern_counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b11 : 2'b00; // Red
 				data_o[5:4] <= (((sy >> 3) + (pattern_counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b10 : 2'b00; // Green
 				data_o[3:2] <= (((sy >> 3) + (pattern_counter >> 2)) ^ (sx >> 3)) % 9 < 1 ? 2'b01 : 2'b00; // Blue
-				data_o[1:0] <= 2'b00; 
+				data_o[1:0] <= 2'b00;
 
 				// Adding shadow
 				if ((((sy >> 3) + (pattern_counter >> 2) + 1) ^ (sx >> 3)) % 9 < 1) begin
@@ -182,10 +187,10 @@ always @(posedge clk) begin
 			3'd7: begin
 				// empty
 			end
-			
+
 
 		endcase
-		
+
 		//strobe to confirm processing
 		stb_o <= 1;
 		output_available <= 1'b0;

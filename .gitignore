@@ -7,3 +7,4 @@ vivado.log
 vivado_pid*.str
 
 obj_dir
+.DS_Store
