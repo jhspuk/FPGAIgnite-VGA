@@ -91,14 +91,14 @@ always @(posedge clk or negedge rst) begin
 	end
 end
 
-logic [9:0] random_pattern;
+reg [9:0] random_pattern;
 /* verilator lint_off UNUSEDSIGNAL */
-logic [9:0] pixel_pattern_r;
-logic [9:0] pixel_pattern_g;
-logic [9:0] pixel_pattern_b;
+reg [9:0] pixel_pattern_r;
+reg [9:0] pixel_pattern_g;
+reg [9:0] pixel_pattern_b;
 /* verilator lint_off UNUSEDSIGNAL */
 //output handshake
-always @(posedge clk or negedge rst) begin
+always @(posedge clk) begin
 
 	if (!rst) begin
 		data_o <= 0;

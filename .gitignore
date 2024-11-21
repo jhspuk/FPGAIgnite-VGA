@@ -8,3 +8,6 @@ vivado_pid*.str
 
 obj_dir
 .DS_Store
+project_1
+project_1/*
+
