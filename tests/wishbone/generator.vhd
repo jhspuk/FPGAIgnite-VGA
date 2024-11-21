@@ -1,19 +1,9 @@
-----------------------------------------------------------------------------------
--- Company: ExampleCorp
--- Engineer: Your Name
--- 
--- Create Date:    08/08/2024 
--- Project Name:   SimpleVGA
--- Target Devices: Artix-7
--- Tool versions:  Vivado 2023.1
--- Description:    Simple VGA Pattern Generator
--- 
-----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-entity SimpleVGA is
+entity top_level is
     Port ( 
            CLK_I     : in  STD_LOGIC;
            VGA_HS_O  : out  STD_LOGIC;
@@ -22,149 +12,117 @@ entity SimpleVGA is
            VGA_B     : out  STD_LOGIC_VECTOR (3 downto 0);
            VGA_G     : out  STD_LOGIC_VECTOR (3 downto 0)
            );
-end SimpleVGA;
+end top_level;
 
-architecture Behavioral of SimpleVGA is
+architecture Behavioral of top_level is
 
--- VGA Sync Generation constants for 640x480 @ 60Hz
-constant FRAME_WIDTH  : natural := 640;
-constant FRAME_HEIGHT : natural := 480;
+component vga_controller
+    Port (
+           CLK_I     : in  STD_LOGIC;
+           VGA_HS_O  : out  STD_LOGIC;
+           VGA_VS_O  : out  STD_LOGIC;
+           VGA_R     : out  STD_LOGIC_VECTOR (3 downto 0);
+           VGA_B     : out  STD_LOGIC_VECTOR (3 downto 0);
+           VGA_G     : out  STD_LOGIC_VECTOR (3 downto 0);
+           WB_CLK_I  : in  STD_LOGIC;
+           WB_RST_I  : in  STD_LOGIC;
+           WB_ADR_I  : in  STD_LOGIC_VECTOR(31 downto 0);
+           WB_DAT_I  : in  STD_LOGIC_VECTOR(31 downto 0);
+           WB_DAT_O  : out STD_LOGIC_VECTOR(31 downto 0);
+           WB_WE_I   : in  STD_LOGIC;
+           WB_STB_I  : in  STD_LOGIC;
+           WB_CYC_I  : in  STD_LOGIC;
+           WB_ACK_O  : out STD_LOGIC
+           );
+end component;
 
-constant H_FP  : natural := 16;  -- H front porch width (pixels)
-constant H_PW  : natural := 96;  -- H sync pulse width (pixels)
-constant H_MAX : natural := 800; -- H total period (pixels)
+-- Clock signal for Wishbone
+signal WB_CLK : std_logic;
+-- Reset signal for Wishbone
+signal WB_RST : std_logic := '0';
 
-constant V_FP  : natural := 10;  -- V front porch width (lines)
-constant V_PW  : natural := 2;   -- V sync pulse width (lines)
-constant V_MAX : natural := 525; -- V total period (lines)
+-- Wishbone signals
+signal WB_ADR  : std_logic_vector(31 downto 0) := (others => '0');
+signal WB_DAT_I: std_logic_vector(31 downto 0) := (others => '0');
+signal WB_DAT_O: std_logic_vector(31 downto 0);
+signal WB_WE   : std_logic := '0';
+signal WB_STB  : std_logic := '0';
+signal WB_CYC  : std_logic := '0';
+signal WB_ACK  : std_logic;
 
-constant H_POL : std_logic := '0';
-constant V_POL : std_logic := '0';
-
-signal pxl_clk : std_logic;
-signal active  : std_logic;
-
-signal h_cntr_reg : std_logic_vector(9 downto 0) := (others =>'0');
-signal v_cntr_reg : std_logic_vector(9 downto 0) := (others =>'0');
-
-signal h_sync_reg : std_logic := not(H_POL);
-signal v_sync_reg : std_logic := not(V_POL);
-
-signal h_sync_dly_reg : std_logic := not(H_POL);
-signal v_sync_dly_reg : std_logic := not(V_POL);
-
-signal vga_red_reg   : std_logic_vector(3 downto 0) := (others =>'0');
-signal vga_green_reg : std_logic_vector(3 downto 0) := (others =>'0');
-signal vga_blue_reg  : std_logic_vector(3 downto 0) := (others =>'0');
+-- Test pattern signals
+signal pattern_state : integer range 0 to 3 := 0;
+signal pattern_count : integer range 0 to 255 := 0;
 
 begin
 
--- Assume an external 25 MHz clock for 640x480 @ 60Hz
-pxl_clk <= CLK_I;
+-- Instance of the VGA controller
+vga_inst : vga_controller
+    port map (
+           CLK_I     => CLK_I,
+           VGA_HS_O  => VGA_HS_O,
+           VGA_VS_O  => VGA_VS_O,
+           VGA_R     => VGA_R,
+           VGA_B     => VGA_B,
+           VGA_G     => VGA_G,
+           WB_CLK_I  => WB_CLK,
+           WB_RST_I  => WB_RST,
+           WB_ADR_I  => WB_ADR,
+           WB_DAT_I  => WB_DAT_I,
+           WB_DAT_O  => WB_DAT_O,
+           WB_WE_I   => WB_WE,
+           WB_STB_I  => WB_STB,
+           WB_CYC_I  => WB_CYC,
+           WB_ACK_O  => WB_ACK
+    );
 
-------------------------------------------------------
--- Simple Pattern Generation Logic
-------------------------------------------------------
-process (pxl_clk)
+-- Clock process for Wishbone clock
+WB_CLK_GEN : process
 begin
-    if (rising_edge(pxl_clk)) then
-        if active = '1' then
-            if h_cntr_reg < FRAME_WIDTH/2 then
-                if v_cntr_reg < FRAME_HEIGHT/2 then
-                    -- Top-left quadrant: Red
-                    vga_red_reg <= "1111";
-                    vga_green_reg <= "0000";
-                    vga_blue_reg <= "0000";
-                else
-                    -- Bottom-left quadrant: Green
-                    vga_red_reg <= "0000";
-                    vga_green_reg <= "1111";
-                    vga_blue_reg <= "0000";
-                end if;
-            else
-                if v_cntr_reg < FRAME_HEIGHT/2 then
-                    -- Top-right quadrant: Blue
-                    vga_red_reg <= "0000";
-                    vga_green_reg <= "0000";
-                    vga_blue_reg <= "1111";
-                else
-                    -- Bottom-right quadrant: Black
-                    vga_red_reg <= "0000";
-                    vga_green_reg <= "0000";
-                    vga_blue_reg <= "0000";
-                end if;
-            end if;
+    WB_CLK <= '0';
+    wait for 10 ns;
+    WB_CLK <= '1';
+    wait for 10 ns;
+end process;
+
+-- Test pattern generator
+test_pattern : process(WB_CLK)
+begin
+    if rising_edge(WB_CLK) then
+        if pattern_count = 255 then
+            pattern_count <= 0;
+            pattern_state <= (pattern_state + 1) mod 4;
         else
-            vga_red_reg <= "0000";
-            vga_green_reg <= "0000";
-            vga_blue_reg <= "0000";
+            pattern_count <= pattern_count + 1;
+        end if;
+
+        -- Generate Wishbone transactions to write color values
+        WB_CYC <= '1';
+        WB_STB <= '1';
+        WB_WE <= '1';
+
+        case pattern_state is
+            when 0 =>  -- Red
+                WB_ADR <= x"00000000";
+                WB_DAT_I <= x"0000000F";  -- Max value for 4-bit color
+            when 1 =>  -- Green
+                WB_ADR <= x"00000001";
+                WB_DAT_I <= x"0000000F";
+            when 2 =>  -- Blue
+                WB_ADR <= x"00000002";
+                WB_DAT_I <= x"0000000F";
+            when others =>  -- Black (or any other color)
+                WB_ADR <= x"00000000";
+                WB_DAT_I <= x"00000000";
+        end case;
+
+        if WB_ACK = '1' then
+            WB_CYC <= '0';
+            WB_STB <= '0';
+            WB_WE <= '0';
         end if;
     end if;
 end process;
-
-------------------------------------------------------
--- VGA Sync Generation Logic
-------------------------------------------------------
-process (pxl_clk)
-begin
-    if rising_edge(pxl_clk) then
-        if (h_cntr_reg = (H_MAX - 1)) then
-            h_cntr_reg <= (others =>'0');
-        else
-            h_cntr_reg <= h_cntr_reg + 1;
-        end if;
-    end if;
-end process;
-
-process (pxl_clk)
-begin
-    if rising_edge(pxl_clk) then
-        if ((h_cntr_reg = (H_MAX - 1)) and (v_cntr_reg = (V_MAX - 1))) then
-            v_cntr_reg <= (others =>'0');
-        elsif (h_cntr_reg = (H_MAX - 1)) then
-            v_cntr_reg <= v_cntr_reg + 1;
-        end if;
-    end if;
-end process;
-
-process (pxl_clk)
-begin
-    if rising_edge(pxl_clk) then
-        if (h_cntr_reg >= (H_FP + FRAME_WIDTH - 1)) and (h_cntr_reg < (H_FP + FRAME_WIDTH + H_PW - 1)) then
-            h_sync_reg <= H_POL;
-        else
-            h_sync_reg <= not(H_POL);
-        end if;
-    end if;
-end process;
-
-process (pxl_clk)
-begin
-    if rising_edge(pxl_clk) then
-        if (v_cntr_reg >= (V_FP + FRAME_HEIGHT - 1)) and (v_cntr_reg < (V_FP + FRAME_HEIGHT + V_PW - 1)) then
-            v_sync_reg <= V_POL;
-        else
-            v_sync_reg <= not(V_POL);
-        end if;
-    end if;
-end process;
-
-active <= '1' when ((h_cntr_reg < FRAME_WIDTH) and (v_cntr_reg < FRAME_HEIGHT)) else
-          '0';
-
-process (pxl_clk)
-begin
-    if rising_edge(pxl_clk) then
-        v_sync_dly_reg <= v_sync_reg;
-        h_sync_dly_reg <= h_sync_reg;
-    end if;
-end process;
-
-VGA_HS_O <= h_sync_dly_reg;
-VGA_VS_O <= v_sync_dly_reg;
-VGA_R    <= vga_red_reg;
-VGA_G    <= vga_green_reg;
-VGA_B    <= vga_blue_reg;
 
 end Behavioral;
 
