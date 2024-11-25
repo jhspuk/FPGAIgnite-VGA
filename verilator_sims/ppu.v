@@ -37,23 +37,29 @@ reg frame_alternate_delayed;
 
 // calculate horizontal and vertical screen position
 always @(posedge clk or negedge rst ) begin
-	if ( (rst==1'b0) || (sync==1) ) begin
+	if (!rst) begin
 		sx <= 0;
 		sy <= 0;
 		frame_alternate <= 0;
-	end else begin
-    frame_alternate_delayed <= frame_alternate;
-		if (sx == LINE) begin  // last pixel on line?
-			sx <= 0;
-			if (sy == SCREEN) begin  // last pixel on line?
-				sy <= 0;
-				frame_alternate <= ~frame_alternate;
-			end else begin
-				sy <= sy + 1;
-			end
-		end else begin
-			sx <= sx + 1;
-		end
+  end else begin
+    if (sync == 1) begin
+      sx <= 0;
+      sy <= 0;
+      frame_alternate <= 0;
+    end else begin
+      frame_alternate_delayed <= frame_alternate;
+      if (sx == LINE) begin  // last pixel on line?
+        sx <= 0;
+        if (sy == SCREEN) begin  // last pixel on line?
+          sy <= 0;
+          frame_alternate <= ~frame_alternate;
+        end else begin
+          sy <= sy + 1;
+        end
+      end else begin
+        sx <= sx + 1;
+      end
+    end
 	end
 end
 
@@ -63,7 +69,7 @@ always @(posedge clk or negedge rst) begin
 	if (!rst) begin
 		frame_counter <= 0;
 	end else begin
-		if (frame_alternate & !frame_alternate_delayed) begin //edge clk
+		if (frame_alternate & !frame_alternate_delayed) begin
 			frame_counter <= frame_counter + 1;
 			if (frame_counter == 1) begin
 				frame_counter <= 0;
@@ -98,13 +104,13 @@ reg [9:0] pixel_pattern_g;
 reg [9:0] pixel_pattern_b;
 /* verilator lint_off UNUSEDSIGNAL */
 //output handshake
-always @(posedge clk) begin
+always @(posedge clk or negedge rst) begin
 
 	if (!rst) begin
 		data_o <= 0;
 		stb_o <= 0;
 		output_available <= 1;
-	end
+  end else begin
 
 	if (ack_o==1) begin
 
@@ -195,6 +201,8 @@ always @(posedge clk) begin
 		stb_o <= 1;
 		output_available <= 1'b0;
 	end
+  end
 end
 
 endmodule
+
