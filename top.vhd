@@ -176,7 +176,7 @@ begin
         if (sys_rst = '0') then
             state <= IDLE;
             ppu_counter <= (others => '0');
-            ppu_mode <= "100"; --4 is the mode has interesting pattern
+            ppu_mode <= "011"; --4 is the mode has interesting pattern
         else
             if rising_edge(clk_pix) then
                 if state=IDLE then
